@@ -1,0 +1,46 @@
+data:
+  train_data: "../data/train.csv"
+  test_data: "../data/test.csv"
+  random_state: 42
+
+features:
+  numeric:
+    - age
+    - no_of_children
+    - net_yearly_income
+    - no_of_days_employed
+    - total_family_members
+    - migrant_worker
+    - yearly_debt_payments
+    - credit_limit
+    - credit_limit_used(%)
+    - credit_score
+    - prev_defaults
+    - credit_card_default
+  categorical:
+    - name
+    - gender
+    - owns_car
+    - owns_house
+    - occupation_type
+  target: default_in_last_6months
+
+model:
+  cv_folds: 3
+
+mlflow:
+  experiment_name: riesgo-credito-3
+  tracking_uri: 
+  model_name: riesgo-credito-3
+  
+
+
+
+
+
+
+
+
+
+
+
