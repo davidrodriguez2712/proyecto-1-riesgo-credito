@@ -1,0 +1,69 @@
+=== Features Numéricas con Missings ===
+- no_of_children (1.7%)
+- no_of_days_employed (1.02%)
+- yearly_debt_payments (0.21%)
+- migrant_worker (0.19%)
+- total_family_members (0.18%)
+- credit_score (0.02%)
+
+=== Features Categóricas con Missings ===
+- owns_car (1.2%)
+
+=== Reporte de Balanceamiento del Target ===
+A nivel del dataset train tiene:
+- 5% -> Default
+- 95% -> No Default
+Recomendación: Mirar Recall como kpi principal junto al AUC. Ponderar pesos entre default/nodefault
+
+=== Reporte Feature vs Target ===
+Se observa señal algunas señales fuertes que presuntamente indicarían poder predictivo relevante
+Algunas de ellas son:
+- prev_defaults
+- credit_score
+- credit_limit_used(%)
+- credit_limit
+- no_of_days_employed
+- net_yearly_income
+- gender
+
+=== Reporte de Distribución de Features ===
+Se observa que hay muchas features con sesgo hacia la derecha por naturaleza de la variable, 
+por ello se recomienda aplicar una log-tranformation o el método WOE en al menos las siguientes:
+- no_of_children
+- net_yearly_income
+- no_of_days_employed
+- no_of_days_employed
+- credit_limit
+- yearly_debt_payments
+
+=== Reporte del análisis de correlación de Pearson ===
+Se observa que existe una alta correlación entre las siguientes features:
+- credit_limit vs net_yearly_income (0.99) -> considerar eliminar alguna de las dos en modelamiento
+- total_family_members vs no_of_children (0.88) -> considerar eliminar alguna de las dos en modelamiento
+
+=== Reporte de Correlación de Spearman ===
+Existe una alta monotonicidad entre:
+- prev_defaults vs target (0.90)
+
+=== Reporte de Análisis VIF ===
+Se observa dos features con alto VIF, altamente correlacionados por lo que existe multicolinealidad.
+Alguna de las dos será candidata a eliminar:
+- net_yearly_income
+- credit_limit
+
+=== Reporte del análisis de PSI ===
+No se observa drift en ninguna de las features (Train vs Test)
+Se ha identificado dos variables altamente predictivas como son: 
+- credit_limit_used(%)
+- credit_score
+
+=== Reporte del Análisis con WOE/PSI ===
+Candidatas para WOE:
+- no_of_days_employed
+- credit_limit_used(%)
+- credit_score (reducir bins)
+
+Candidatas a Log-Transformation:
+- credit_limit
+- total_family_members
+- yearly_debt_payments

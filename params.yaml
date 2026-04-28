@@ -16,9 +16,7 @@ features:
     - credit_limit_used(%)
     - credit_score
     - prev_defaults
-    - credit_card_default
   categorical:
-    - name
     - gender
     - owns_car
     - owns_house
@@ -32,7 +30,7 @@ mlflow:
   experiment_name: riesgo-credito-3
   tracking_uri: 
   model_name: riesgo-credito-3
-  
+
 
 
 
