@@ -1,0 +1,12 @@
+## Ignorar archivos
+.env
+*.log
+src/test_2.py
+src/test.ipynb
+
+## Ignorar carpetas
+__pycache__/
+.vscode/
+.DS_Store
+.ipynb_checkpoints/
+logs/

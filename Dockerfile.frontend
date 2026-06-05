@@ -1,0 +1,21 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=True
+ENV PYTHONDONTWRITEBYTECODE=True
+
+WORKDIR /usr/src/app
+
+COPY ./requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./artifacts ./artifacts
+COPY ./frontend ./frontend
+
+ENV PYTHONPATH=/usr/src/app
+
+EXPOSE 4020
+
+CMD ["streamlit", "run", "frontend/streamlit_app.py", "--server.address=0.0.0.0", "--server.port=4020", "--server.headless=true"]
+
+

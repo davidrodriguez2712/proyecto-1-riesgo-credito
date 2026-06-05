@@ -1,0 +1,19 @@
+features:
+  numeric:
+    - credit_limit_used(%)
+    - no_of_days_employed
+    - credit_score
+    - credit_limit
+    - total_family_members
+    - yearly_debt_payments
+    - net_yearly_income
+    - no_of_children
+    - migrant_worker
+    - age
+    - prev_defaults
+
+  categorical:
+    - gender
+    - owns_car
+    - owns_house
+    - occupation_type
