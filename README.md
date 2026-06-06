@@ -6,9 +6,9 @@
 ![XGBoost](https://img.shields.io/badge/XGBoost-3.1.3-orange)
 ![LightGBM](https://img.shields.io/badge/LightGBM-4.6-orange)
 ![MLFlow](https://img.shields.io/badge/MLFlow-3.11-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.129.0?logo=fastapi)
-![Docker](https://img.shields.io/badge/Docker-7.11-blue?logo=fastapi)
-![Scikit-learn](https://img.shields.io/badge/ScikitLearn-1.8-gree?logo=scikitlearn)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.129.0-green?logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-7.11-blue)
+![Scikit-learn](https://img.shields.io/badge/ScikitLearn-1.8-green?logo=scikitlearn)
 ![SHAP](https://img.shields.io/badge/SHAP-0.50-purple)
 
 ## Tabla de Contenidos
@@ -177,9 +177,7 @@ PIPE5_STANDAR_SCALER --> FINAL_MATRIX
 
 ## Modelo Elegido
 
-Modelo seleccionado:
-
-> **Regresión Logística**
+- [x] Regresión Logística
 
 > Razones:
 > - Interpretabilidad
@@ -203,26 +201,43 @@ Modelo seleccionado:
 Se utilizó SHAP para:
 
 **Importancia de Features (SHAP Bar)**
+- La feature "binary__prev_defaults" tiene un altísimo poder predictivo impactando en el PD con una relación monotónica creciente.
+- Es por ello que tenemos una fuerte separación en la distribución del target y por lo tanto tenemos altos valores en la ROC AUC y PR AUC.
+
 ![GLOBAL](reports/figures/model_evaluation/shap_bar_plot.png)
 
 
 **Contribución al riesgo (SHAP Beeswarm)**
+- A medida que incrementa el valor de la feature "binary_prev_defaults" aumenta también el riesgo de default del cliente.
+- A medida que disminuye el valor de la feature "woe_credit_limit_used(%)_woe", aumenta la probabilidad de default.
 ![SHAP](reports/figures/model_evaluation/shap_beeswarm_plot.png)
 
 ## Monitoring
 
 Se evaluó el drift vs el dataset test.csv, próximamente se utilizará Grafana para monitorear en tiempo real:
 
-**Target Drift**
+#### Target Drift
+- Se observa aqui que la prevalencia o Default Rate es muy similar tanto en el dataset de Train vs Test/OOT.
+- Por lo que se intuye que no tenemos target drift.
+
 ![TARGETDRIFT](reports/figures/monitoring/target_drift.png)
 
-**Score Drift**
+#### Score Drift
+- Se observa que la distribución del score en Train en muy similar a la distribución del score en Test/OOT.
+- Por lo que se intuye que no tenemos Score Drift.
+
 ![SCOREDRIFT](reports/figures/monitoring/score_drift.png)
 
-**Performance Drift**
+#### Performance Drift
+- Se observa que el AUC obtenido en Train es muy similar al AUC obtenido en Test/OOT.
+- Por lo que se intuye que no tenemos Performance Drift.
+
 ![PERFORMANCEDRIFT](reports/figures/monitoring/performance_drift.png)
 
-**Calibración**
+#### Calibración
+- Se observa que tanto el Train como el Test/OOT tienen un comportamiento overconfidence, es decir, sobreestiman el riesgo predicho en promedio del cliente.
+- Pero a nivel de distribución tanto Train como Test/OOT son muy similares, por lo que se intuye que no tenemos Calibration Drift.
+
 ![CALIBRACION](reports/figures/monitoring/monitoring_calibration.png)
 
 ## Stack Tecnologico
