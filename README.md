@@ -11,6 +11,9 @@
 ![Scikit-learn](https://img.shields.io/badge/ScikitLearn-1.8-green?logo=scikitlearn)
 ![SHAP](https://img.shields.io/badge/SHAP-0.50-purple)
 
+## Demo (Gif)
+![DEMO](assets/demo.gif)
+
 ## Tabla de Contenidos
 - [Problema de Negocio](#problema-de-negocio)
 - [Arquitectura Funcional](#arquitectura-funcional)
