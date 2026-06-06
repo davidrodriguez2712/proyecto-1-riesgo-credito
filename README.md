@@ -210,6 +210,7 @@ Se utilizó SHAP para:
 **Contribución al riesgo (SHAP Beeswarm)**
 - A medida que incrementa el valor de la feature "binary_prev_defaults" aumenta también el riesgo de default del cliente.
 - A medida que disminuye el valor de la feature "woe_credit_limit_used(%)_woe", aumenta la probabilidad de default.
+
 ![SHAP](reports/figures/model_evaluation/shap_beeswarm_plot.png)
 
 ## Monitoring
