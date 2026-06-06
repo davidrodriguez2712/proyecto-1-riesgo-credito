@@ -2,14 +2,14 @@
 
 > Sistema de Machine Learning para predecir incumplimiento crediticio de clientes utilizando técnicas de Feature Engineering, WOE, calibración de probabilidades e interpretabilidad con SHAP.
 
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![XGBoost](https://img.shields.io/badge/XGBoost-3.1.3)
-![LightGBM](https://img.shields.io/badge/LightGBM-4.6)
-![MLFlow](https://img.shields.io/badge/MLFlow-3.11)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.129.0)
-![Docker](https://img.shields.io/badge/Docker-7.11)
-![Scikit-learn](https://img.shields.io/badge/Scikit-Learn-1.8)
-![SHAP](https://img.shields.io/badge/SHAP-0.50)
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![XGBoost](https://img.shields.io/badge/XGBoost-3.1.3-orange)
+![LightGBM](https://img.shields.io/badge/LightGBM-4.6-orange)
+![MLFlow](https://img.shields.io/badge/MLFlow-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.129.0?logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-7.11-blue?logo=fastapi)
+![Scikit-learn](https://img.shields.io/badge/ScikitLearn-1.8-gree?logo=scikitlearn)
+![SHAP](https://img.shields.io/badge/SHAP-0.50-purple)
 
 ## Tabla de Contenidos
 - [Problema de Negocio](#problema-de-negocio)
@@ -108,6 +108,13 @@ D --> E
 > [!Note]
 > Aqui está incluido el WOE Encoding + Preprocessor Pipeline
 
+Se aplicaron:
+- Missing Indicators
+- Log Transformations
+- WOE Encoding
+- One Hot Encoding
+- Standard Scaling
+
 ```mermaid
 flowchart TD
 
@@ -154,20 +161,14 @@ PIPE5_STANDAR_SCALER --> FINAL_MATRIX
 
 ```
 
-Se aplicaron:
-
-- Missing Indicators
-- Log Transformations
-- WOE Encoding
-- One Hot Encoding
-- Standard Scaling
-
 ## Benchmark de Modelos
 
 > [!NOTE]
-> Evaluado en Validación
+> Hay altos valores de performance pero una de las
+> razones principales es porque tenemos dos features
+> muy predictivas (revisarlo en Interpretabilidad ↓)
 
-| Model | ROC AUC | PR AUC | Prevalencia |
+| Model (en Test) | ROC AUC | PR AUC | Prevalencia |
 |-------|---------|--------|-------------|
 | Regresión Logística | 0.992 | 0.720 | 0.052 |
 | Random Forest | 0.995 | 0.844 | 0.052 | 
@@ -178,13 +179,12 @@ Se aplicaron:
 
 Modelo seleccionado:
 
-Regresión Logística
+> **Regresión Logística**
 
-Razones:
-
-- Interpretabilidad
-- Performance
-- Facilidad regulatoria
+> Razones:
+> - Interpretabilidad
+> - Performance
+> - Facilidad regulatoria
 
 ## Resultados
 
@@ -202,29 +202,58 @@ Razones:
 
 Se utilizó SHAP para:
 
-- Global Importance
+**Importancia de Features (SHAP Bar)**
+![GLOBAL](reports/figures/model_evaluation/shap_bar_plot.png)
 
 
-- Individual Predictions
+**Contribución al riesgo (SHAP Beeswarm)**
+![SHAP](reports/figures/model_evaluation/shap_beeswarm_plot.png)
 
 ## Monitoring
 
-Producción monitoreada mediante:
+Se evaluó el drift vs el dataset test.csv, próximamente se utilizará Grafana para monitorear en tiempo real:
 
-- PSI
-- Target Drift
-- Score Drift
-- Monthly AUC
+**Target Drift**
+![TARGETDRIFT](reports/figures/monitoring/target_drift.png)
+
+**Score Drift**
+![SCOREDRIFT](reports/figures/monitoring/score_drift.png)
+
+**Performance Drift**
+![PERFORMANCEDRIFT](reports/figures/monitoring/performance_drift.png)
+
+**Calibración**
+![CALIBRACION](reports/figures/monitoring/monitoring_calibration.png)
 
 ## Stack Tecnologico
 
-Python
-Scikit-Learn
-SHAP
-MLflow
-FastAPI
-Docker
-Streamlit
+### Machine Learning
+| Librería | Versión | Rol |
+|----------|---------|------|
+| Scikit-Learn | 1.8.0 | Preprocessing, pipelines, cross-validation |
+| XGBoost | 3.1.3 | Modelo de Boosting |
+| LighGBM | 4.6.0 | Modelo de Boosting |
+| Optuna | 4.7.0 | Optimizador Bayesiano de Hiperparámetros |
+| Pandas | 3.0.3 | Manipulación de datos |
+| Numpy | 2.3.3 | Funciones numéricas |
+| SHAP | 0.50.0 | Interpretador del modelo |
+
+### Trackeo de Experimentos
+| Librería | Versión | Rol |
+|----------|---------|-----|
+| MLflow | 3.11.1 | Trackeo de experimentos, registro de modelos y artefactos |
+
+### Backend & Frontend
+| Librería | Versión | Rol |
+|----------|---------|-----|
+| FastAPI | 0.129.0 | REST API Framework |
+| Uvicorn | 0.34.0 | Servidor ASGI |
+| Streamlit | 1.58.0 | Front interactivo |
+
+### Infraestructura
+| Librería | Versión | Rol |
+|----------|---------|-----|
+| Docker | 7.1.0 | Construir las imágenes de la aplicación |
 
 ## Estructura del Repositorio
 
@@ -307,7 +336,3 @@ proyecto-riesgo-crediticio/
     └── utils
         └── negocio.py
 ```
-
-
-## Inicio Rápido
-
